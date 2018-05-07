@@ -31,8 +31,12 @@
   </div>
 </div>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript">
 
+
+<script type="text/javascript">
+    // jQuery('#btn')，只得是<div>中的变量，#username,#password同理
+    //# 号指使用id来寻找元素
+    //on(,,):将一个或多个事件的事件处理函数附加到所选元素。
     $('#btn').on('click', function(){
       var username = $('#username').val();
       var password = $('#password').val();
@@ -40,13 +44,19 @@
         username: username,
         password: password
       };
+      // $是语法糖，等同于jQuery.ajax(...)
       $.ajax({
+
+        //参数解释与设置：http://devdocs.io/jquery/jquery.ajax
         type: 'POST',
+        //包含请求发送到的URL的字符串。
         url: '/data/login',
+        //obj是上文定义的
         data: obj,
         success: function(data){
           console.log(data)
           if(data.status){
+            console.log("data.status: "+data.status);
             window.location.href = '/';
           }else{
             alert('登录失败');
@@ -55,6 +65,7 @@
         error: function(){
           alert('登录失败');
         },
+        //返回服务器数据
         dataType: 'json'
       });
     });
